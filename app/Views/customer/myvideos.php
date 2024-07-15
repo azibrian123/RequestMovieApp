@@ -21,6 +21,12 @@
                         <a href="" class="btn btn-primary">Tonton Video</a>
 
                     </div>
+
+                    <div class="card-footer">
+                        <h5>Batas Waktu : </h5>
+                        <p style="font-weight: bold; color: red;"><?= date('h:m:s', strtotime($video->expired)); ?></p>
+                        <p style="font-weight: bold; color: red;"><?= date('l, d/M/Y', strtotime($video->expired)); ?></p>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -71,13 +71,14 @@ class Customers extends BaseController
     public function myVideos(): string
     {
 
-        $this->videosModel->select('request.id as requestid, nama, tahun, deskripsi, sampul, status');
+        $videos = $this->videosModel->select('request.id as requestid, nama, tahun, deskripsi, sampul, status, expired');
         $this->videosModel->join('request', 'request.video_id = videos.id');
         $this->videosModel->where('request.status', 'Approved');
         $this->videosModel->where('request.user_id', user_id());
+
         $data = [
             'title' => 'Daftar video yang direquest',
-            'videos' => $this->videosModel->asObject()->findAll()
+            'videos' => $videos->asObject()->findAll()
         ];
 
         return view('/customer/myvideos', $data);
@@ -96,19 +97,4 @@ class Customers extends BaseController
 
         return view('/customer/myrequest', $data);
     }
-
-    //     public function save(): string
-    //     {
-    //         $fileSampul = $this->request->getFile('sampul');
-
-    //         if ($fileSampul->getError() == 4) {
-    //             $namaSampul = 'default.png';
-    //         } else {
-    //             $namaSampul = $fileSampul->getRandomName();
-
-    //             $fileSampul->move('img', $namaSampul);
-    //         }
-    // $this->cus
-
-    //     }
 }

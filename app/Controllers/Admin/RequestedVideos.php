@@ -18,8 +18,9 @@ class RequestedVideos extends BaseController
 
     public function index(): string
     {
-        $this->videosModel->select('request.id as requestid, nama, tahun, deskripsi, sampul');
+        $this->videosModel->select('request.id as requestid, nama, tahun, deskripsi, sampul, status');
         $this->videosModel->join('request', 'request.video_id = videos.id');
+        $this->videosModel->where('status', 'pending');
 
         $data = [
             'title' => 'Daftar semua request video',
